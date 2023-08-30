@@ -1,0 +1,4 @@
+title 05 Single page app diagram 
+
+Browser->>Server: HTTPS GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server-->>Browser: CSS code. main.css

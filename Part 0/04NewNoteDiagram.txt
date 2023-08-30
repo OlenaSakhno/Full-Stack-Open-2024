@@ -1,0 +1,17 @@
+title 04NewNoteDiagram
+
+
+Browser->>Server: HTTPS POST https://studies.cs.helsinki.fi/exampleapp/new_note
+Server-->>Browser: 
+Browser->>Server:HTTPS GET https://studies.cs.helsinki.fi/exampleapp/notes
+Server-->>Browser: HTML code
+Browser->>Server: HTTPS GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server-->>Browser: css code. main.css
+Browser->>Server: HTTPS GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server-->>Browser: javaScript code. main.js
+Browser->> Server : HTTPS GET chrome-extension://fmkadmapgofadopljbjfkapdkoienihi/build/installHook.js
+Server-->> Browser: javaScript code. installHook.js
+Browser->> Server: HTTPS GET https://studies.cs.helsinki.fi/exampleapp/data.json 
+Server-->> Browser: data.json [{content:"test" , date:"2022-12-23T12:55:00.695Z"}, ..., {content:"neNote" , date:"2022-12-23T13:57:00.695Z"}] 
+Browser->> Server: HTTPS GET https://studies.cs.helsinki.fi/favicon.ico
+Server-->>Browser: HTML code
