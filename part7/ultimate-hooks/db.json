@@ -1,0 +1,69 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "notes": [
+    {
+      "id": 1,
+      "title": "first note",
+      "author": "Olena"
+    },
+    {
+      "id": 2,
+      "title": "second note",
+      "author": "Olena"
+    },
+    {
+      "content": "new",
+      "id": 3
+    },
+    {
+      "content": "new2",
+      "id": 4
+    },
+    {
+      "content": "new3",
+      "id": 5
+    },
+    {
+      "content": "new 4",
+      "id": 6
+    }
+  ],
+  "persons": [
+    {
+      "id": 2,
+      "name": "Mariia",
+      "number": "222-333-444"
+    },
+    {
+      "name": "George",
+      "number": "878-564-222",
+      "id": 3
+    },
+    {
+      "name": "Olena",
+      "number": "333-555-777",
+      "id": 4
+    },
+    {
+      "name": "Vlad",
+      "number": "444-666-888",
+      "id": 5
+    }
+  ]
+}
