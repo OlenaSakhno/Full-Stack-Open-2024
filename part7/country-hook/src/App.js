@@ -18,7 +18,7 @@ const useField = (type) => {
 const useCountry = (name) => {
   const [country, setCountry] = useState(null);
   useEffect(() => {
-
+7.
     axios
       .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${name}`)
       .then((response) => {
