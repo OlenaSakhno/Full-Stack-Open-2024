@@ -36,6 +36,7 @@ const App = () => {
 
   return (
     <div>
+      <i style={{ color: "red" }}>run json server (npm run server)</i>
       <h2>notes</h2>
       <form onSubmit={handleNoteSubmit}>
         <input {...content} />
