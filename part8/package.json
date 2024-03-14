@@ -1,0 +1,36 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "Full stack open, part 8.  GraphQL",
+  "main": "index.js",
+  "dependencies": {
+    "@apollo/server": "^4.10.1",
+    "graphql": "^16.8.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OlenaSakhno/Full-Stack-Open-2022.git"
+  },
+  "keywords": [
+    "GraphQL",
+    "part",
+    "8",
+    "full",
+    "stack",
+    "open"
+  ],
+  "author": "Olena Sakhno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OlenaSakhno/Full-Stack-Open-2022/issues"
+  },
+  "homepage": "https://github.com/OlenaSakhno/Full-Stack-Open-2022#readme"
+}
