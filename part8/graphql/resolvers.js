@@ -1,7 +1,9 @@
 const { GraphQLError } = require("graphql");
+const jwt = require("jsonwebtoken");
 const { v1: uuid } = require("uuid");
 const Book = require("../models/book");
 const Author = require("../models/author");
+const User = require("../models/user");
 const resolvers = {
   Query: {
     bookCount: async () => Book.collection.countDocuments(),
@@ -38,6 +40,9 @@ const resolvers = {
       });
       return result;
     },
+    me: (root, args, context) => {
+      return context.currentUser;
+    },
   },
 
   //Mutations
@@ -47,15 +52,43 @@ const resolvers = {
       const isAuthorInList = await Author.findOne({ name: args.author });
       if (!isAuthorInList) {
         const author = new Author({ name: args.author });
-        author.save();
+        try {
+          await author.save();
+        } catch (error) {
+          throw new GraphQLError("Saving author failed", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args.author,
+              error,
+            },
+          });
+        }
       }
-      return book.save();
+
+      return book.save().catch((error) => {
+        throw new GraphQLError("Add book failed", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.title,
+            error,
+          },
+        });
+      });
     },
+
     editAuthor: async (root, args) => {
       let author = await Author.findOne({ name: args.name });
       if (author) {
         author.born = args.setBornTo;
-        return author.save();
+        return author.save().catch((error) => {
+          throw new GraphQLError("Edit Author failed", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args.username,
+              error,
+            },
+          });
+        });
       } else {
         throw new GraphQLError("Author is not in the list", {
           extensions: {
@@ -64,6 +97,42 @@ const resolvers = {
           },
         });
       }
+    },
+
+    createUser: async (root, args) => {
+      const user = new User({
+        username: args.username,
+        favoriteGenre: args.favoriteGenre,
+      });
+
+      return user.save().catch((error) => {
+        throw new GraphQLError("Creating the user failed", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.username,
+            error,
+          },
+        });
+      });
+    },
+
+    login: async (root, args) => {
+      const user = await User.findOne({ username: args.username });
+
+      if (!user || args.password !== "secret") {
+        throw new GraphQLError("wrong credentials", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
+
+      const userForToken = {
+        username: user.username,
+        id: user._id,
+      };
+
+      return { value: jwt.sign(userForToken, process.env.JWT_SECRET) };
     },
   },
 };

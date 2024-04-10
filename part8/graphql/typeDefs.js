@@ -11,6 +11,14 @@ type Book {
   published:String! 
   genres:[String!]!
 }
+type User {
+  username: String!
+  favoriteGenre: String
+  id: ID!
+}
+type Token {
+  value: String!
+}
 
 
 type Query {
@@ -21,6 +29,7 @@ type Query {
     booksByGenre(genre:String!):[Book!]
     allAuthors:[Author!]
     booksByAuthorByGenre(author:String, genre:String):[Book!]
+    me: User
   }
 
   type Mutation {
@@ -34,6 +43,15 @@ type Query {
       name: String! 
       setBornTo: Int!
     ):Author
+    createUser(
+      username: String!
+      favoriteGenre: String!
+    ): User
+    login(
+      username: String!
+      password: String!
+    ): Token
+    
   }
 
 
