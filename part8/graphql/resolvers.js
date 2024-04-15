@@ -11,6 +11,9 @@ const resolvers = {
     allBooks: async (root, args) => {
       return await Book.find({});
     },
+    allGenres: async (root, args) => {
+      return await Book.find({});
+    },
     allBooksOfAuthor: async (root, arg) =>
       await Book.find({ author: arg.author }).exec(),
     booksByGenre: async (root, args) => await Book.find({ genres: args.genre }),
@@ -47,8 +50,16 @@ const resolvers = {
 
   //Mutations
   Mutation: {
-    addBook: async (root, args) => {
+    addBook: async (root, args, context) => {
       const book = new Book({ ...args });
+      const currentUser = context.currentUser;
+      if (!currentUser) {
+        throw new GraphQLError("not authenticated", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
       const isAuthorInList = await Author.findOne({ name: args.author });
       if (!isAuthorInList) {
         const author = new Author({ name: args.author });
@@ -76,7 +87,7 @@ const resolvers = {
       });
     },
 
-    editAuthor: async (root, args) => {
+    editAuthor: async (root, args, context) => {
       let author = await Author.findOne({ name: args.name });
       if (author) {
         author.born = args.setBornTo;

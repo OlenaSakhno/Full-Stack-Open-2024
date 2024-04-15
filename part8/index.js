@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 // const Person = require("./models/person");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const User = require("./models/user");
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

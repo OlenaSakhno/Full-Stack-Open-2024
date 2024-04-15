@@ -20,6 +20,13 @@ export const ALL_BOOKS = gql`
     }
   }
 `;
+export const ALL_GENRES = gql`
+  query {
+    allGenres {
+      genres
+    }
+  }
+`;
 
 export const ADD_BOOK = gql`
   mutation AddBook(
@@ -47,6 +54,14 @@ export const EDIT_AUTHOR = gql`
     editAuthor(name: $name, setBornTo: $born) {
       name
       born
+    }
+  }
+`;
+
+export const LOGIN = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      value
     }
   }
 `;

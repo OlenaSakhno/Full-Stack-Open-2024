@@ -14,30 +14,38 @@ const NewBook = (props) => {
   //   return null
   // }
 
-  const [addBook] = useMutation(
-    ADD_BOOK,
-    // { //TODO this does not work. Fix it
-    //   onError: (error) => {
-    //     setMessage(error.graphQLErrors[0].message);
-    //   },
+  const [addBook] = useMutation(ADD_BOOK, {
+    refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
+    onError: (error) => {
+      const messages = error.graphQLErrors.map((e) => e.message).join("\n");
+      setMessage(messages);
+    },
+    // update: (cache, response) => {
+    //   cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
+    //     return {
+    //       allBooks: allPersons.concat(response.data.addBook),
+    //     }
+    //   })
     // },
-    {
-      refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
-    }
-  );
+  });
   const submit = async (event) => {
     event.preventDefault();
     try {
-      await addBook({ variables: { title, author, published, genres } });
+      await addBook({
+        variables: {
+          title,
+          author,
+          published,
+          genres: genres.length ? genres : [],
+        },
+      });
       setTitle("");
       setPublished("");
       setAuthor("");
       setGenres([]);
       setGenre("");
-      setMessage("");
     } catch (err) {
-      setMessage("Error");
-      console.log("error", message);
+      console.log("error=>", err);
     }
   };
 
@@ -83,7 +91,7 @@ const NewBook = (props) => {
         <div>genres: {genres.join(" ")}</div>
         <button type="submit">create book</button>
       </form>
-      {message && <p style={{ color: "red" }}>Error</p>}
+      {message && <p style={{ color: "red" }}>{message}</p>}
     </div>
   );
 };

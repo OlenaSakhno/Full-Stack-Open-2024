@@ -19,12 +19,16 @@ type User {
 type Token {
   value: String!
 }
+type Genre {
+  value:[String!]
+}
 
 
 type Query {
     bookCount: Int!
     authorCount:Int!
     allBooks:[Book!]
+    allGenres:[Genre!]
     allBooksOfAuthor(author:String!):[Book!]
     booksByGenre(genre:String!):[Book!]
     allAuthors:[Author!]
