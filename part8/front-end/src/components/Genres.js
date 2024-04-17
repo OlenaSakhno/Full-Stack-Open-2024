@@ -16,7 +16,9 @@ const Genres = ({ setSelectedGenre }) => {
       {genres &&
         genres.length &&
         genres.map((genre) => (
-          <button onClick={() => setSelectedGenre(genre)}>{genre}</button>
+          <button key={genre} onClick={() => setSelectedGenre(genre)}>
+            {genre}
+          </button>
         ))}
       <button onClick={() => setSelectedGenre("")}>All genres</button>
     </div>

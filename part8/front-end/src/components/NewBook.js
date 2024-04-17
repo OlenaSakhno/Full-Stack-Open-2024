@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ADD_BOOK, ALL_BOOKS, ALL_AUTHORS } from "../queries";
 import { useMutation } from "@apollo/client";
+import { updateCache } from "../App";
 
 const NewBook = (props) => {
   const [title, setTitle] = useState("");
@@ -20,6 +21,11 @@ const NewBook = (props) => {
       const messages = error.graphQLErrors.map((e) => e.message).join("\n");
       setMessage(messages);
     },
+    //TODO  make the cache solution work
+    // update: (cache, response) => {
+    //   updateCache(cache, { query: ALL_BOOKS }, response.data.addBook)
+    // },
+//old cache solution. Did not work also
     // update: (cache, response) => {
     //   cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
     //     return {
