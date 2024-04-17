@@ -5,6 +5,9 @@ const Book = require("../models/book");
 const Author = require("../models/author");
 const User = require("../models/user");
 
+const { PubSub } = require("graphql-subscriptions");
+const pubsub = new PubSub();
+
 // const context = async ({ req, res }) => {
 //   const auth = req ? req.headers.authorization : null;
 //   if (auth && auth.startsWith("Bearer ")) {
@@ -62,7 +65,12 @@ const resolvers = {
       return context.currentUser;
     },
   },
-
+  // Subscription
+  Subscription: {
+    bookAdded: {
+      subscribe: () => pubsub.asyncIterator("BOOK_ADDED"),
+    },
+  },
   //Mutations
   Mutation: {
     addBook: async (root, args, context) => {
@@ -90,6 +98,7 @@ const resolvers = {
           });
         }
       }
+      pubsub.publish("BOOK_ADDED", { bookAdded: book });
 
       return book.save().catch((error) => {
         throw new GraphQLError("Add book failed", {

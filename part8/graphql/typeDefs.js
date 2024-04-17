@@ -54,12 +54,12 @@ type Query {
     login(
       username: String!
       password: String!
-    ): Token
-    
+    ): Token   
   }
 
-
-  
+  type Subscription {
+    bookAdded: Book!
+  }    
 `;
 
 module.exports = { typeDefs };
