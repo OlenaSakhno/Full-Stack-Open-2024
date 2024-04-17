@@ -4,6 +4,16 @@ const { v1: uuid } = require("uuid");
 const Book = require("../models/book");
 const Author = require("../models/author");
 const User = require("../models/user");
+
+// const context = async ({ req, res }) => {
+//   const auth = req ? req.headers.authorization : null;
+//   if (auth && auth.startsWith("Bearer ")) {
+//     const decodedToken = jwt.verify(auth.substring(7), process.env.JWT_SECRET);
+//     const currentUser = await User.findById(decodedToken.id);
+//     return { currentUser };
+//   }
+// };
+
 const resolvers = {
   Query: {
     bookCount: async () => Book.collection.countDocuments(),
@@ -11,8 +21,12 @@ const resolvers = {
     allBooks: async (root, args) => {
       return await Book.find({});
     },
-    allGenres: async (root, args) => {
-      return await Book.find({});
+    getGenres: async (root, args) => {
+      const allBooks = await Book.find({});
+      const allGenres = allBooks.flatMap((book) => book.genres);
+      const uniqueGenres = [...new Set(allGenres)];
+      console.log("uniqueGenres", uniqueGenres);
+      return { allGenres: uniqueGenres };
     },
     allBooksOfAuthor: async (root, arg) =>
       await Book.find({ author: arg.author }).exec(),
@@ -44,6 +58,7 @@ const resolvers = {
       return result;
     },
     me: (root, args, context) => {
+      console.log("context", context);
       return context.currentUser;
     },
   },

@@ -34,10 +34,9 @@ const App = () => {
   }
   return (
     <>
-      <button onClick={logout}>logout</button>
       <Router>
         <div>
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", display: "flex" }}>
             <Link to="/">
               <button>authors</button>
             </Link>
@@ -47,6 +46,10 @@ const App = () => {
             <Link to="/add">
               <button>add book</button>
             </Link>
+            <div style={{ marginLeft: "160px" }}>
+              <button onClick={logout}>logout</button>
+              <button onClick={logout}>recomended</button>
+            </div>
           </div>
           <Routes>
             <Route path="/" element={<Authors />} />

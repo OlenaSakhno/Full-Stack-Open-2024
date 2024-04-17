@@ -22,8 +22,18 @@ export const ALL_BOOKS = gql`
 `;
 export const ALL_GENRES = gql`
   query {
-    allGenres {
-      genres
+    getGenres {
+      allGenres
+    }
+  }
+`;
+
+export const USER = gql`
+  query {
+    me {
+      username
+      id
+      favoriteGenre
     }
   }
 `;

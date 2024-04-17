@@ -20,7 +20,7 @@ type Token {
   value: String!
 }
 type Genre {
-  value:[String!]
+  allGenres:[String!]
 }
 
 
@@ -28,7 +28,7 @@ type Query {
     bookCount: Int!
     authorCount:Int!
     allBooks:[Book!]
-    allGenres:[Genre!]
+    getGenres: Genre!
     allBooksOfAuthor(author:String!):[Book!]
     booksByGenre(genre:String!):[Book!]
     allAuthors:[Author!]
