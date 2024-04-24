@@ -1,0 +1,19 @@
+{
+  "name": "part9",
+  "version": "1.0.0",
+  "description": "Full Stack open, part 9",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "ts-node": "ts-node",
+    "bmi": "ts-node bmiCalculator.ts",
+    "calc": "ts-node exerciseCalculator.ts"
+
+  },
+  "author": "Olena Sakhno",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
