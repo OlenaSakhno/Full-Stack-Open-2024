@@ -4,16 +4,22 @@
   "description": "Full Stack open, part 9",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node index.ts",
+    "dev": "ts-node-dev index.ts",
     "test": "test",
     "ts-node": "ts-node",
     "bmi": "ts-node bmiCalculator.ts",
     "calc": "ts-node exerciseCalculator.ts"
-
   },
   "author": "Olena Sakhno",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
