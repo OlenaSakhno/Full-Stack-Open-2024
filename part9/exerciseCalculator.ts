@@ -1,18 +1,26 @@
-import parseArguments from "./utils/parser";
-
 interface Result {
   daysNumber: number;
   trainingDaysNumber: number;
   originalTargetValue: number;
   calculatedAverageTime: number;
-  isTargetWasReached: Boolean;
+  isTargetWasReached: boolean;
   rating: 1 | 2 | 3;
-  ratingExplanation: String;
+  ratingExplanation: string;
 }
 
-const calculateExercises = (): Result => {
-  const { target, dailyExerciseHours, calculatedTime, daysNumber } =
-    parseArguments(process.argv);
+const calculateExercises = (
+  targetStr: number | string,
+  dailyExerciseHoursStr: number[] | string[]
+): Result => {
+  const target = Number(targetStr);
+  const daysNumber = dailyExerciseHoursStr.length;
+  const dailyExerciseHours = dailyExerciseHoursStr.map((e) => Number(e));
+  const calculatedTime =
+    dailyExerciseHours.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }, 0) / daysNumber;
+  if (isNaN(target) && dailyExerciseHours.filter((e) => isNaN(e)))
+    throw new Error("Provided values were not numbers!");
   return {
     daysNumber: daysNumber,
     trainingDaysNumber: dailyExerciseHours.filter((h) => h > 0).length,
@@ -24,4 +32,4 @@ const calculateExercises = (): Result => {
   };
 };
 
-console.dir(calculateExercises());
+export default calculateExercises;
